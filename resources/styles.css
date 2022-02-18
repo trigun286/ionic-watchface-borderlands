@@ -3,37 +3,37 @@
 }
 
 #img_health {
-  x: 39;
-  y: 224;
+  x: 10%;
+  y: 90%;
   width: 207;
-  height: 17;
+  height: 15;
 }
 
 #img_s_empty {
-  x: 35;
-  y: 191;
-  width: 180;
+  x: 10%-1;
+  y: 78%;
+  width: 53%;
   height: 25;
 }
 
 #img_s_full {
-  x: 35;
-  y: 191;
-  width: 180;
+  x: 10%-1;
+  y: 78%;
+  width: 53%;
   height: 25;
 }
 
 #img_shield {
-  x: 39;
-  y: 195;
-  height: 17;
-  width: 171;
+  x: 10%;
+  y: 80%;
+  width: 53%;
+  height: 25;
 }
 
 #img_xp {
   x: 5;
   y: 6;
-  width: 340;
+  width: 100%-2;
   height: 11;
 }
 
@@ -49,20 +49,13 @@
   y: 36;
 }
 
-#date {
-  fill: white;
-  font-size: 23;
-  text-anchor: middle;
-  x: 50%;
-  y: 32%;
-}
-
 #dayOfWeek {
-  fill: white;
-  font-size: 23;
-  text-anchor: middle;
-  x: 50%;
-  y: 65%;
+  fill: cyan;
+  background-color: black;
+  font-size: 20;
+  text-anchor: start;
+  x: 10%-2;
+  y: 75%;
 }
 
 #currentSteps {
@@ -73,62 +66,46 @@
   y: 36;
 }
 
-#time {
-  fill: #e9c905;
-  font-size: 80;
-  text-anchor: middle;
-  x: 50%;
-  y: 40%+40;
-}
-
-#timeShadow {
-  fill: black;
-  font-size: 80;
-  text-anchor: middle;
-  x: 50%-6;
-  y: 40%+46;
-}
-
 #hrLevel {
   fill: white;
-  font-size: 23;
-  text-anchor: middle;
-  x: 279;
-  y: 209;
+  font-size: 20;
+  text-anchor: start;
+  x: 63%;
+  y: 84%;
 }
 
 #level {
   fill: white;
   font-size: 27;
   text-anchor: middle;
-  x: 296;
-  y: 240;
+  x: 82%;
+  y: 96%;
 }
 
 #hrm {
   fill: white;
   font-size: 23;
-  x: 60;
-  y: 243;
+  x: 15%;
+  y: 100%-4;
 }
 
 #hrmShadow {
   fill: black;
   font-size: 23;
-  x: 58;
-  y: 245;
+  x: 15%-2;
+  y: 100%-2;
 }
 
 #battery {
   fill: white;
   font-size: 23;
-  x: 60;
-  y: 206;
+  x: 15%;
+  y: 87%;
 }
 
 #batteryShadow {
   fill: black;
   font-size: 23;
-  x: 58;
-  y: 208;
+  x: 15%-2;
+  y: 87%+2;
 }

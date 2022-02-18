@@ -1,4 +1,6 @@
 import document from "document";
+import { me as device } from "device";
+if (!device.screen) device.screen = { width: 348, height: 250 };
 
 //STEPS - ELEVATION
 import userActivity from "user-activity";
@@ -16,8 +18,8 @@ function updateSteps() {
         let currentSteps = (userActivity.today.local.steps || 0);
         let stepPercentage = currentSteps / userActivity.goals.steps;
         xpBar.width = (currentSteps < userActivity.goals.steps)
-            ? stepPercentage * 340
-            : 340;
+            ? stepPercentage * device.screen.width
+            : device.screen.width;
     }
 }
 
@@ -25,13 +27,13 @@ stepGoalField.text = userActivity.goals.steps || 0;
 
 //BATTERY
 import { battery } from "power";
-
 let batteryField = document.getElementById('battery');
 let batteryFieldSh = document.getElementById('batteryShadow');
 let batteryBar = document.getElementById('shield_bar');
 let batteryIndicatorEmpty = document.getElementById('img_s_empty');
 let batteryIndicatorFull = document.getElementById('img_s_full');
-
+let baseXOffset = device.screen.width * 0.1;
+let baseYMult = device.screen.width / 2;
 batteryField.text = Math.floor(battery.chargeLevel);
 
 function updateBattery() {
@@ -50,7 +52,7 @@ function updateBattery() {
 
     if (batteryPercentage !== 0) {
         // batteryBar.width = (batteryPercentage / 100) * 171;
-        batteryBar.x = 39 - (171 - ((batteryPercentage / 100) * 171));
+        batteryBar.x = baseXOffset - (baseYMult - ((batteryPercentage / 100) * baseYMult));
     }
 }
 
@@ -58,7 +60,6 @@ updateBattery();
 battery.onchange = () => updateBattery();
 
 //DATE
-let date = document.getElementById('date');
 let dayOfWeek = document.getElementById('dayOfWeek');
 
 let monthNames = [
@@ -74,9 +75,8 @@ function updateDate() {
     let day = dayInfo.getDay();
     let month = dayInfo.getMonth();
     let dayOfMonth = dayInfo.getDate();
-
-    date.text = `${monthNames[month]} ${dayOfMonth}`;
-    dayOfWeek.text = `${dayNames[day]}`;
+    
+    dayOfWeek.text = `${dayNames[day]}, ${monthNames[month]} ${dayOfMonth}`;
 }
 
 //CLOCK
@@ -140,14 +140,13 @@ let hrLabel = document.getElementById("hrm");
 let hrLabelSh = document.getElementById("hrmShadow");
 let hrLevel = document.getElementById("hrLevel");
 let hrBar = document.getElementById("health_bar");
-let hrmLastTimeStamp = 0;
 
 hrLabel.text = "??";
 let hrCustomZoneNames = {
-    'out-of-range': 'Relaxed',
-    'fat-burn': 'Fat Burn',
-    'cardio': 'Cardio',
-    'peak': 'Peak'
+    'out-of-range': { zone:'Relaxed', color: 'white'},
+    'fat-burn': { zone:'Fat Burn', color: 'yellow'},
+    'cardio': { zone:'Cardio', color: 'orange'},
+    'peak': { zone:'Peak', color: 'red'}
 };
 
 hrm.onreading = function() {
@@ -156,8 +155,10 @@ hrm.onreading = function() {
 
     hrLabel.text = heartRate;
     hrLabelSh.text = heartRate;
-    hrLevel.text = hrCustomZoneNames[`${hrZone}`];
-    hrBar.x = 39; //207
+    let hrWatchZone = hrCustomZoneNames[`${hrZone}`];
+    hrLevel.text = hrWatchZone.zone;
+    hrLevel.style.fill = hrWatchZone.color;
+    hrBar.x = baseXOffset - (baseYMult - ((heartRate / 220) * baseYMult));
 
     hrm.stop();
 };
@@ -176,13 +177,6 @@ function intervalFunction() {
     if (display.on) {
         hrm.start();
         updateSteps();
-
-        if (hrmLastTimeStamp === hrm.timestamp) {
-            hrLevel.text = "Couch Potato";
-            hrBar.x = -168;
-        } else {
-            hrmLastTimeStamp = hrm.timestamp;
-        }
     }
 }
 
